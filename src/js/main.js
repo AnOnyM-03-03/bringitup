@@ -1,4 +1,9 @@
-import { MainSlider, MiniSlider, VideoPlayer, Slider } from './modules/index';
+import {
+   MainSlider,
+   MiniSlider,
+   VideoPlayer,
+   Difference,
+} from './modules/index';
 window.addEventListener('DOMContentLoaded', () => {
    const video = new VideoPlayer('.showup .play', '.overlay');
    video.init();
@@ -25,6 +30,9 @@ window.addEventListener('DOMContentLoaded', () => {
       next: '.feed__slider .slick-next',
       activeClass: 'feed__item-active',
    });
+
+   new Difference('.officerold', '.officernew', '.officer__card-item').init();
+
    showUpSlider.init();
    modulesSlider.init();
    feedSlider.init();
