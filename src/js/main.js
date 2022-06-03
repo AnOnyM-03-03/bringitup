@@ -1,5 +1,7 @@
-import { MainSlider, MiniSlider, VideoPlayer, Slider } from './modules/index';
+import { MainSlider, MiniSlider, VideoPlayer, Form } from './modules/index';
+
 window.addEventListener('DOMContentLoaded', () => {
+    
    const video = new VideoPlayer('.showup .play', '.overlay');
    video.init();
    const slider = new MainSlider({ btns: '.next', page: '.page' });
@@ -25,6 +27,9 @@ window.addEventListener('DOMContentLoaded', () => {
       next: '.feed__slider .slick-next',
       activeClass: 'feed__item-active',
    });
+
+   new Form('.form', 'assets/question.php').init();
+
    showUpSlider.init();
    modulesSlider.init();
    feedSlider.init();
