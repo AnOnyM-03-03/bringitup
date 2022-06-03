@@ -44,30 +44,32 @@ export class MainSlider extends Slider {
 
    render() {
       try {
-         this.hanson = document.querySelector('.hanson');
-      } catch (e) {}
+         try {
+            this.hanson = document.querySelector('.hanson');
+         } catch (e) {}
 
-      //    перебираем кнопки и на каждую вешаем клик
-      this.btns.forEach((btn) => {
-         //   т,к у нас на странице одна кнопка и нужна вспомогательная функция
-         btn.addEventListener('click', () => {
-            this.plusSlides(1);
+         //    перебираем кнопки и на каждую вешаем клик
+         this.btns.forEach((btn) => {
+            //   т,к у нас на странице одна кнопка и нужна вспомогательная функция
+            btn.addEventListener('click', () => {
+               this.plusSlides(1);
+            });
+
+            // обращаемся к родителю кнопки и вызываем метод для вызова предыдущего элемента и вешаем на него клик
+            btn.parentNode.previousElementSibling.addEventListener(
+               'click',
+               (e) => {
+                  // отменяем стандартное поведение для ссылки
+                  e.preventDefault();
+                  //    ссылаемся на самый первый слайд
+                  this.slideIndex = 1;
+                  //    и вызываем функцию для перехода к нему
+                  this.showSlides(this.slideIndex);
+               }
+            );
          });
 
-         // обращаемся к родителю кнопки и вызываем метод для вызова предыдущего элемента и вешаем на него клик
-         btn.parentNode.previousElementSibling.addEventListener(
-            'click',
-            (e) => {
-               // отменяем стандартное поведение для ссылки
-               e.preventDefault();
-               //    ссылаемся на самый первый слайд
-               this.slideIndex = 1;
-               //    и вызываем функцию для перехода к нему
-               this.showSlides(this.slideIndex);
-            }
-         );
-      });
-
-      this.showSlides(this.slideIndex);
+         this.showSlides(this.slideIndex);
+      } catch (e) {}
    }
 }
