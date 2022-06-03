@@ -3,11 +3,10 @@ import {
    MiniSlider,
    VideoPlayer,
    Difference,
-   Form
+   Form,
 } from './modules/index';
 
 window.addEventListener('DOMContentLoaded', () => {
-    
    const video = new VideoPlayer('.showup .play', '.overlay');
    video.init();
    const slider = new MainSlider({ btns: '.next', page: '.page' });
