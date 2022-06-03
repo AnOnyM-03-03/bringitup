@@ -11,7 +11,9 @@ export class Slider {
       //    внутри конструктора указываем переменные
       this.page = document.querySelector(page);
       //   слайдеры это у нас все дети родительского блока с классом page
-      this.slides = this.page.children;
+      try {
+         this.slides = this.page.children;
+      } catch (e) {}
       this.btns = document.querySelectorAll(btns);
       //   номер текущего слайда
       this.slideIndex = 1;
