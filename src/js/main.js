@@ -1,4 +1,10 @@
-import { MainSlider, MiniSlider, VideoPlayer, Form } from './modules/index';
+import {
+   MainSlider,
+   MiniSlider,
+   VideoPlayer,
+   Difference,
+   Form
+} from './modules/index';
 
 window.addEventListener('DOMContentLoaded', () => {
     
@@ -29,6 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
    });
 
    new Form('.form', 'assets/question.php').init();
+   new Difference('.officerold', '.officernew', '.officer__card-item').init();
 
    showUpSlider.init();
    modulesSlider.init();
