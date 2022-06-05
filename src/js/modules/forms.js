@@ -11,7 +11,6 @@ export class Form {
 
          if (elem.setSelectionRange) {
             elem.setSelectionRange(pos, pos);
-         } else if (elem.createTextRange) {
             const range = elem.createTextRange();
             range.collapse(true);
             range.moveEnd('character', pos);
@@ -73,7 +72,6 @@ export class Form {
    checkMailInputs() {
       const emailInputs = document.querySelectorAll('[type="email"]');
       emailInputs.forEach((Input) => {
-        //   ввод только латиницы @ and .
          Input.addEventListener('keypress', (e) => {
 
             if (e.key.match(/[^a-z 0-9 @ \.]/gi)) {
@@ -87,42 +85,29 @@ export class Form {
       this.initMask();
       this.checkMailInputs();
       this.forms.forEach((form) => {
-         //   событие отправки формы при нажатии на кнопку
          form.addEventListener('submit', (e) => {
             e.preventDefault();
-            // создаем див
             const statusMessage = document.createElement('div');
-            // задаем для него стили
             statusMessage.style.cssText = `
                 margin-top:15px;
                 font-size:18px;
                 color:gray;
             `;
-            // в родителя формы мы аппендим наш див
             form.parentNode.appendChild(statusMessage);
-            // и выводим текст
             statusMessage.innerText = 'Вы молодец! форма отправлена:)';
 
-            // создаем формДата
             const formData = new FormData(form);
-            // в наш пост метод мы добавляем путь и форму которую нужно отправить
             this.postData(this.path, formData);
             
             try {
-               // после того как форма отправлена, мы выводим текст
                then((res) => {
                   console.log(res);
                   statusMessage.innerText = 'Вы молодец! форма отправлена:)';
                });
-            } catch (e) {
-               //    если не получилось отправить
-               throw e = new Error('Вы не смогли это сделать');
-            //    выполнятеся в любом случае
-            } finally {
+            } catch (e) {throw e = new Error('Вы не смогли это сделать');}
+            finally {
                () => {
-                //    запускаем функцию очистки инпута
                   this.clearInputs();
-                //   через 4 сек удаляем сообщение с отправкой
                   setTimeout(() => {
                      statusMessage.remove();
                   }, 4000);

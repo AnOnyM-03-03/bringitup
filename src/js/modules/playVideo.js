@@ -1,27 +1,23 @@
 export class VideoPlayer {
    constructor(triggers, popup) {
-      //    передаем триггер куда будем кликать
       this.buttons = document.querySelectorAll(triggers);
-      //   блок которй ьудем вызывать
       this.popup = document.querySelector(popup);
-      //   в самом блоке находим элемент с кнопкой
       this.close = this.popup.querySelector('.close');
       this.onPlayerStateChange = this.onPlayerStateChange.bind(this);
    }
 
    bindTriggers() {
-      //    перебираем кнопки
       this.buttons.forEach((btn, i) => {
          try {
-            const blockedElem = btn.closest(
-               '.module__video-item'
-            ).nextElementSibling;
+            const blockedElem = btn.closest('.module__video-item').nextElementSibling;
+
             if (i % 2 === 0) {
                blockedElem.setAttribute('data-disabled', 'true');
             }
          } catch (e) {}
 
          btn.addEventListener('click', () => {
+
             if (
                !btn.closest('.module__video-item') ||
                btn
@@ -29,15 +25,15 @@ export class VideoPlayer {
                   .getAttribute('data-disabled') !== 'true'
             ) {
                this.activeBtn = btn;
-               //  если при нажатии на кнопку имеется класс iframe#frame то мы показываем окно с видео
+
                if (document.querySelector('iframe#frame')) {
                   this.popup.style.display = 'flex';
+
                   if (this.path !== btn.getAttribute('data-url')) {
                      this.path = btn.getAttribute('data-url');
                      this.player.loadVideoById({ videoId: this.path });
                   }
                } else {
-                  // иначе мы создаем новое окно с видео
                   this.path = btn.getAttribute('data-url');
 
                   this.createPlayer(this.path);
@@ -47,7 +43,6 @@ export class VideoPlayer {
       });
    }
 
-   //    функция закрытия модального окна
    bindCloseBtn() {
       this.close.addEventListener('click', () => {
          this.popup.style.display = 'none';
@@ -55,7 +50,6 @@ export class VideoPlayer {
       });
    }
 
-   //    функция создания блока с видеоплеером
    createPlayer(url) {
       this.player = new YT.Player('frame', {
          height: '100%',
@@ -76,6 +70,7 @@ export class VideoPlayer {
          const playBtn = this.activeBtn.querySelector('svg').cloneNode(true);
 
          if (state.data === 0) {
+
             if (
                blockedElem
                   .querySelector('.play__circle')
@@ -100,16 +95,12 @@ export class VideoPlayer {
       } catch (e) {}
    }
 
-   //    главный метод инициализации
    init() {
+
       if (this.buttons.length > 0) {
-         //    создаем тег скрипт
          const tag = document.createElement('script');
-         //   с ссылкой на ютюб
          tag.src = 'https://www.youtube.com/iframe_api';
-         //   в переменную записываем тег который будет первым
          const firstScriptTag = document.getElementsByTagName('script')[0];
-         //   и затем мы его отправлеям вниз
          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
          this.bindTriggers();
