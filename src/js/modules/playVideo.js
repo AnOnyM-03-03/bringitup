@@ -24,9 +24,11 @@ export class VideoPlayer {
          btn.addEventListener('click', () => {
             if (
                !btn.closest('.module__video-item') ||
-               btn.getAttribute('data-disabled', 'true') !== 'true'
+               btn
+                  .closest('.module__video-item')
+                  .getAttribute('data-disabled') !== 'true'
             ) {
-               this.actibeBtn = btn;
+               this.activeBtn = btn;
                //  если при нажатии на кнопку имеется класс iframe#frame то мы показываем окно с видео
                if (document.querySelector('iframe#frame')) {
                   this.popup.style.display = 'flex';
@@ -68,10 +70,10 @@ export class VideoPlayer {
 
    onPlayerStateChange(state) {
       try {
-         const blockedElem = this.actibeBtn.closest(
+         const blockedElem = this.activeBtn.closest(
             '.module__video-item'
          ).nextElementSibling;
-         const playBtn = this.actibeBtn.querySelector('svg').cloneNode(true);
+         const playBtn = this.activeBtn.querySelector('svg').cloneNode(true);
 
          if (state.data === 0) {
             if (
