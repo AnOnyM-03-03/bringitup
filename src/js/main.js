@@ -3,15 +3,22 @@ import {
    MiniSlider,
    VideoPlayer,
    Difference,
-   Form
+   Form,
+   ShowInfo,
+   Download,
 } from './modules/index';
 
 window.addEventListener('DOMContentLoaded', () => {
-   new VideoPlayer('.showup .play', '.overlay').init();
-   new VideoPlayer('.module__video-item .play', '.overlay').init();
-
+   
    const slider = new MainSlider({ btns: '.next', page: '.page' });
    slider.render();
+
+   const modulePageSlider = new MainSlider({
+      page: '.moduleapp',
+      btns: '.next',
+   });
+   modulePageSlider.render();
+
    const showUpSlider = new MiniSlider({
       page: '.showup__content-slider',
       prev: '.showup__prev',
@@ -33,9 +40,13 @@ window.addEventListener('DOMContentLoaded', () => {
       next: '.feed__slider .slick-next',
       activeClass: 'feed__item-active',
    });
-
+  
+   new VideoPlayer('.showup .play', '.overlay').init();
+   new VideoPlayer('.module__video-item .play', '.overlay').init();
    new Form('.form', 'assets/question.php').init();
    new Difference('.officerold', '.officernew', '.officer__card-item').init();
+   new ShowInfo('.plus__content').init();
+   new Download('.download').init();
 
    showUpSlider.init();
    modulesSlider.init();
