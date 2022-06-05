@@ -9,8 +9,7 @@ import {
 } from './modules/index';
 
 window.addEventListener('DOMContentLoaded', () => {
-   const video = new VideoPlayer('.showup .play', '.overlay');
-   video.init();
+   
    const slider = new MainSlider({ btns: '.next', page: '.page' });
    slider.render();
 
@@ -41,7 +40,9 @@ window.addEventListener('DOMContentLoaded', () => {
       next: '.feed__slider .slick-next',
       activeClass: 'feed__item-active',
    });
-
+  
+   new VideoPlayer('.showup .play', '.overlay').init();
+   new VideoPlayer('.module__video-item .play', '.overlay').init();
    new Form('.form', 'assets/question.php').init();
    new Difference('.officerold', '.officernew', '.officer__card-item').init();
    new ShowInfo('.plus__content').init();
