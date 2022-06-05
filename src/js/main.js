@@ -3,11 +3,12 @@ import {
    MiniSlider,
    VideoPlayer,
    Difference,
-   Form
+   Form,
+   ShowInfo,
+   Download,
 } from './modules/index';
 
 window.addEventListener('DOMContentLoaded', () => {
-    
    const video = new VideoPlayer('.showup .play', '.overlay');
    video.init();
    const slider = new MainSlider({ btns: '.next', page: '.page' });
@@ -36,6 +37,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
    new Form('.form', 'assets/question.php').init();
    new Difference('.officerold', '.officernew', '.officer__card-item').init();
+   new ShowInfo('.plus__content').init();
+   new Download('.download').init();
 
    showUpSlider.init();
    modulesSlider.init();
