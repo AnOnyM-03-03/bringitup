@@ -1,8 +1,8 @@
 import { Slider } from './slider';
 
 export class MainSlider extends Slider {
-   constructor(page, buttons) {
-      super(page, buttons);
+   constructor(page, btns) {
+      super(page, btns);
    }
 
    //    функция в которую передаем текущий индекс слайда
@@ -42,34 +42,51 @@ export class MainSlider extends Slider {
       this.showSlides((this.slideIndex += n));
    }
 
+   bindTriggers() {
+      //    перебираем кнопки и на каждую вешаем клик
+      this.btns.forEach((btn) => {
+         //   т,к у нас на странице одна кнопка и нужна вспомогательная функция
+         btn.addEventListener('click', () => {
+            this.plusSlides(1);
+         });
+         // обращаемся к родителю кнопки и вызываем метод для вызова предыдущего элемента и вешаем на него клик
+         btn.parentNode.previousElementSibling.addEventListener(
+            'click',
+            (e) => {
+               // отменяем стандартное поведение для ссылки
+               e.preventDefault();
+               //    ссылаемся на самый первый слайд
+               this.slideIndex = 1;
+               //    и вызываем функцию для перехода к нему
+               this.showSlides(this.slideIndex);
+            }
+         );
+      });
+
+      document.querySelectorAll('.prevmodule').forEach((item) => {
+         item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            this.plusSlides(-1);
+         });
+      });
+      document.querySelectorAll('.nextmodule').forEach((item) => {
+         item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            this.plusSlides(1);
+         });
+      });
+   }
+
    render() {
-      try {
+      if (this.page) {
          try {
             this.hanson = document.querySelector('.hanson');
          } catch (e) {}
 
-         //    перебираем кнопки и на каждую вешаем клик
-         this.btns.forEach((btn) => {
-            //   т,к у нас на странице одна кнопка и нужна вспомогательная функция
-            btn.addEventListener('click', () => {
-               this.plusSlides(1);
-            });
-
-            // обращаемся к родителю кнопки и вызываем метод для вызова предыдущего элемента и вешаем на него клик
-            btn.parentNode.previousElementSibling.addEventListener(
-               'click',
-               (e) => {
-                  // отменяем стандартное поведение для ссылки
-                  e.preventDefault();
-                  //    ссылаемся на самый первый слайд
-                  this.slideIndex = 1;
-                  //    и вызываем функцию для перехода к нему
-                  this.showSlides(this.slideIndex);
-               }
-            );
-         });
-
          this.showSlides(this.slideIndex);
-      } catch (e) {}
+         this.bindTriggers();
+      }
    }
 }
